@@ -25,7 +25,9 @@ const connexion = async (req, res) => {
     if (!validPassword) throw new Error("Invalid password");
 
     res.json({ user, message: "Vous êtes connécté" });
-  } catch (error) {}
+  } catch (error) {
+    res.send(error.message);
+  }
 };
 
 export { inscription, connexion };

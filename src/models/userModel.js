@@ -12,8 +12,13 @@ const userSchema = new Schema({
 
 userSchema.methods.encryptPassword = async (password) => {
   const salt = await bcrypt.genSalt(5);
-  const hash = await bcrypt.hash(password, salt);
+  const hash = await bcrypt.hashSync(password, salt);
   return hash;
+};
+
+userSchema.methods.validPassword = async (candidatePassword, oldPassword) => {
+  const result = await bcrypt.compare(candidatePassword, oldPassword);
+  return result;
 };
 
 const User = mongoose.model("User", userSchema);

@@ -1,4 +1,4 @@
-import express, { Router } from "express"; // necessaire pour le back
+import express from "express"; // necessaire pour le back
 import dotenv from "dotenv"; // pour appeler notre fichier.env
 import mongoose from "mongoose";
 import router from "./routes/userRoute";
@@ -14,8 +14,8 @@ async function main() {
   console.log(`📁DATABASE CONNECTED🐳`);
 }
 
-app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
   res.send("Hello world");

@@ -16,11 +16,13 @@ async function main() {
   console.log(`📁DATABASE CONNECTED🐳`);
 }
 
+app.set("view engine", "ejs");
+
+app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.use("/auth", router);
-
 app.use("/playlists", playlistRouter);
 app.use("/songs", songRouter);
 

@@ -1,11 +1,12 @@
 import { Router } from "express";
 import { connexion, inscription } from "../controllers/userController";
 
-const router = Router();
+const userRouter = Router();
 
-router.post("/inscription", inscription);
-router.post("/connexion", connexion);
+userRouter.get("/connexion", (req, res) => res.render("Connexion"));
+userRouter.get("/inscription", (req, res) => res.render("inscription"));
 
+userRouter.post("/inscription", inscription);
+userRouter.post("/connexion", connexion);
 
-
-export default router;
+export default userRouter;

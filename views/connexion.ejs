@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style.css" />
+    <title>Connexion</title>
+  </head>
+
+  <body>
+    <div class="form-container">
+      <h2>Se connecter</h2>
+      <form action="/auth/connexion" method="post">
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input
+            type="text"
+            id="email"
+            name="email"
+            placeholder="Entrer votre email"
+            required
+            autocomplete="off"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Votre mot de passe"
+            required
+          />
+        </div>
+
+        <button type="submit" class="submit-btn">Connexion</button>
+      </form>
+
+      <p>
+        Vous n'avez pas de compte ?
+        <a href="/auth/inscription">S'enregistrer</a>
+      </p>
+    </div>
+  </body>
+</html>

@@ -10,6 +10,15 @@ const getAllPlaylist = async (req, res) => {
   }
 };
 
+const getAplaylist = async (req, res) => {
+  try {
+    const playlist = await Playlist.findById(req.params.id).populate("songs");
+    res.json(playlist);
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+};
+
 const createPlaylist = async (req, res) => {
   const { title } = req.body;
   const { description } = req.body;
@@ -75,6 +84,7 @@ const deleteSongPlaylist = async (req, res) => {
 
 export {
   getAllPlaylist,
+  getAplaylist,
   createPlaylist,
   editPlaylist,
   deletePlaylist,

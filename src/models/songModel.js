@@ -6,6 +6,7 @@ const songSchema = new Schema({
   artiste: String,
   album: String,
   duree: String,
+  genre: String,
   source: String,
 });
 

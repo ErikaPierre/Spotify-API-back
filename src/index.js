@@ -4,10 +4,12 @@ import mongoose from "mongoose";
 import router from "./routes/userRoute";
 import { playlistRouter } from "./routes/playlistRoute";
 import { songRouter } from "./routes/songRoute";
+import { auth } from "./middlewares/auth";
 dotenv.config(); //pour appeler la configuration de l'environnement
 
 const app = express();
 const port = process.env.PORT;
+const cors = require("cors");
 
 main().catch((err) => console.log(err));
 
@@ -21,13 +23,14 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cors());
 
-app.use("/auth", router);
+// app.use("/auth", router);
 app.use("/playlists", playlistRouter);
 app.use("/songs", songRouter);
 
 app.get("/", (req, res) => {
-  res.send("Hello world");
+  res.send("Welcom on API Spotify");
 });
 
 app.listen(port, () =>

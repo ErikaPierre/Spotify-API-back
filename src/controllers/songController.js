@@ -10,6 +10,15 @@ const getAllSongs = async (req, res) => {
   }
 };
 
+const getAsong = async (req, res) => {
+  try {
+    const song = await Song.findById(req.params.id);
+    res.json(song);
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+};
+
 const createSong = async (req, res) => {
   const { title, artiste, album, duree, scr } = req.body;
   try {
@@ -68,4 +77,11 @@ const deleteSong = async (req, res) => {
     res.json({ error: error.message });
   }
 };
-export { getAllSongs, createSong, insertSongPlaylist, editSong, deleteSong };
+export {
+  getAllSongs,
+  getAsong,
+  createSong,
+  insertSongPlaylist,
+  editSong,
+  deleteSong,
+};

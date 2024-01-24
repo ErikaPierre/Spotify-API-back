@@ -22,7 +22,20 @@ const getAplaylist = async (req, res) => {
 const createPlaylist = async (req, res) => {
   const { title } = req.body;
   const { description } = req.body;
+
   try {
+    const existingPlaylist = await Playlist.findOne({
+      title,
+      user: "659ec5508a09a25b832cb779",
+    });
+    console.log(req.user);
+
+    if (existingPlaylist) {
+      return res
+        .status(400)
+        .json({ message: "Une playlist avec ce nom existe déjà." });
+    }
+
     const newPlaylist = await Playlist.create({
       title: title,
       description: description,

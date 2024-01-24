@@ -1,30 +1,32 @@
+import { generateAuthToken } from "../middlewares/auth";
 import User from "../models/userModel";
 
 const inscription = async (req, res) => {
   try {
-    let newUser = await new User();
+    const newUser = await new User();
     newUser.email = req.body.email;
-    newUser.password = await newUser.encryptPassword(req.body.password);
+    newUser.password = await newUser.crypto(req.body.password);
     newUser.save();
-    res.send(newUser);
+    const token = generateAuthToken(newUser);
+    res.send({ newUser, token });
   } catch (error) {
     res.send(error);
   }
 };
 
 const connexion = async (req, res) => {
-  const email = req.body.email;
+  const { email, password } = req.body;
   try {
-    const user = await User.findOne({ email });
-    if (!user) throw new Error("Invalid");
+    const user = await User.findOne({ email }).select("+password");
+    const verify = await user.verifPass(password, user.password);
+    if (!verify) {
+      const error = new Error("Invalid password");
+      throw error;
+    }
 
-    const validPassword = await user.validPassword(
-      req.body.password,
-      user.password
-    );
-    if (!validPassword) throw new Error("Invalid password");
+    const token = generateAuthToken(user);
 
-    res.json({ user, message: "Vous êtes connécté" });
+    res.json({ user, message: "Vous êtes connecté", token });
   } catch (error) {
     res.send(error.message);
   }

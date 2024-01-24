@@ -20,7 +20,7 @@ const getAsong = async (req, res) => {
 };
 
 const createSong = async (req, res) => {
-  const { title, artiste, album, duree, scr } = req.body;
+  const { title, artiste, album, duree, scr, genre } = req.body;
   try {
     const newSong = await Song.create({
       title: title,
@@ -28,6 +28,7 @@ const createSong = async (req, res) => {
       album: album,
       duree: duree,
       scr: scr,
+      genre: genre,
     });
     res.json({ newSong, message: "Your music has been succefully create " });
   } catch (error) {
